@@ -8,778 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0a0e14;
-            --bg-secondary: #141922;
-            --bg-tertiary: #1e2430;
-            --accent-primary: #00ff88;
-            --accent-secondary: #0080ff;
-            --text-primary: #e6e8eb;
-            --text-secondary: #9da3ae;
-            --text-muted: #5c6370;
-            --border-color: #2a3241;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'IBM Plex Mono', monospace;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, var(--accent-primary) 2px, var(--accent-primary) 4px),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, var(--accent-primary) 2px, var(--accent-primary) 4px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 14, 20, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            padding: 1.5rem 0;
-        }
-
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--accent-primary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-primary);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-            position: relative;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hero-text h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero-text .highlight {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-        }
-
-        .hero-text .subtitle {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-text .description {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--accent-primary);
-            color: var(--bg-primary);
-        }
-
-        .btn-primary:hover {
-            background: #00cc6f;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
-        }
-
-        /* Code Block Effect */
-        .hero-code {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            font-size: 0.9rem;
-            position: relative;
-            overflow: hidden;
-            animation: fadeInRight 0.8s ease-out 0.4s both;
-        }
-
-        .hero-code::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: var(--bg-tertiary);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .hero-code::after {
-            content: '⬤ ⬤ ⬤';
-            position: absolute;
-            top: 12px;
-            left: 1rem;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 8px;
-        }
-
-        .code-content {
-            margin-top: 2rem;
-        }
-
-        .code-line {
-            margin-bottom: 0.5rem;
-            opacity: 0;
-            animation: codeFadeIn 0.5s ease-out forwards;
-        }
-
-        .code-line:nth-child(1) { animation-delay: 1s; }
-        .code-line:nth-child(2) { animation-delay: 1.2s; }
-        .code-line:nth-child(3) { animation-delay: 1.4s; }
-        .code-line:nth-child(4) { animation-delay: 1.6s; }
-        .code-line:nth-child(5) { animation-delay: 1.8s; }
-        .code-line:nth-child(6) { animation-delay: 2s; }
-
-        .code-keyword { color: var(--accent-secondary); }
-        .code-string { color: var(--accent-primary); }
-        .code-number { color: #ff8c00; }
-        .code-comment { color: var(--text-muted); }
-
-        @keyframes codeFadeIn {
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Section Styles */
-        section {
-            padding: 6rem 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 2px;
-        }
-
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 1rem auto 0;
-        }
-
-        /* Experience Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            padding-left: 3rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.4rem;
-            top: 8px;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-primary);
-            border: 3px solid var(--bg-primary);
-            border-radius: 50%;
-            box-shadow: 0 0 0 4px var(--bg-secondary);
-        }
-
-        .timeline-content {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            border-color: var(--accent-primary);
-            transform: translateX(5px);
-            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.1);
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .timeline-header h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-primary);
-        }
-
-        .timeline-company {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-date {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-        }
-
-        .timeline-content ul {
-            list-style: none;
-            margin: 1rem 0;
-        }
-
-        .timeline-content li {
-            padding-left: 1.5rem;
-            margin-bottom: 0.8rem;
-            position: relative;
-            color: var(--text-secondary);
-        }
-
-        .timeline-content li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--accent-primary);
-            font-size: 1.2rem;
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .tech-tag {
-            background: var(--bg-tertiary);
-            color: var(--accent-primary);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(0, 255, 136, 0.2);
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            border-color: var(--accent-primary);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.1);
-        }
-
-        .skill-category h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--accent-primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-category h3::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--accent-primary);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .skill-item {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .skill-item:hover {
-            background: var(--accent-primary);
-            color: var(--bg-primary);
-            transform: scale(1.05);
-        }
-
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .project-card:hover {
-            border-color: var(--accent-primary);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0, 255, 136, 0.15);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-
-        .project-card h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .project-date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .project-card p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .contact-info h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .contact-info p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-
-        .contact-link:hover {
-            border-color: var(--accent-primary);
-            transform: translateX(5px);
-            background: var(--bg-tertiary);
-        }
-
-        .contact-link svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--accent-primary);
-        }
-
-        .contact-form {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 0;
-            text-align: center;
-            color: var(--text-muted);
-        }
-
-        footer p {
-            margin-bottom: 0.5rem;
-        }
-
-        footer a {
-            color: var(--accent-primary);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-text h1 {
-                font-size: 3rem;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav ul {
-                gap: 1rem;
-            }
-
-            .section-header h2 {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-text .subtitle {
-                font-size: 1.1rem;
-            }
-
-            nav .logo {
-                font-size: 1.2rem;
-            }
-
-            nav ul {
-                display: none;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .timeline-item {
-                padding-left: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Scroll Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <style></style>
 </head>
 <body>
     <div class="bg-animation"></div>
@@ -820,9 +50,26 @@
                     <div class="code-content">
                         <div class="code-line"><span class="code-keyword">const</span> developer = {</div>
                         <div class="code-line">  name: <span class="code-string">"Pradeep Kumar"</span>,</div>
-                        <div class="code-line">  role: <span class="code-string">"Software Engineer"</span>,</div>
-                        <div class="code-line">  experience: <span class="code-number">4</span>, <span class="code-comment">// years</span></div>
-                        <div class="code-line">  specialization: [<span class="code-string">"PHP"</span>, <span class="code-string">"Laravel"</span>, <span class="code-string">"APIs"</span>]</div>
+                        <div class="code-line">  role: <span class="code-string">"Software Engineer"</span>, <span class="code-string">"Senior PHP Developer"</span>, <span class="code-string">"Laravel Developer"</span>, <span class="code-string">"Backend Developer"</span></div>
+                        <div class="code-line">  experience: <span class="code-number">4.5</span>, <span class="code-comment">// years</span></div>
+                        <div class="code-line">  specialization: 
+                            [
+                            <span class="code-string">"PHP"</span>,
+                            <span class="code-string">"Laravel"</span>,
+                            <span class="code-string">"Cake PHP"</span>,
+                            <span class="code-string">"CodeIgniter"</span>,
+                            <span class="code-string">"MySQL"</span>, 
+                            <span class="code-string">"MVC"</span>, 
+                            <span class="code-string">"OOPs"</span>
+                            <span class="code-string">"API Development"</span>, 
+                            <span class="code-string">"API Integration"</span>,
+                            <span class="code-string">"Rest APIs"</span>, 
+                            <span class="code-string">"MySQL"</span>,
+                            <span class="code-string">"MVC"</span>, 
+                            <span class="code-string">"Database Design"</span>,
+                            <span class="code-string">"Secure Backend"</span>
+                            ]
+                        </div>
                         <div class="code-line">};</div>
                     </div>
                 </div>
@@ -874,7 +121,7 @@
                                 <h3>Web Developer</h3>
                                 <p class="timeline-company">K4 Infotech Pvt. Ltd</p>
                             </div>
-                            <span class="timeline-date">Oct 2023 - Jun 2024</span>
+                            <span class="timeline-date">Nav 2023 - Jun 2024</span>
                         </div>
                         <ul>
                             <li>Developed and maintained a CRM software for managing customer data, leads, and communications</li>
@@ -882,7 +129,6 @@
                             <li>Implemented role-based access control, data validation, and security features</li>
                         </ul>
                         <div class="tech-tags">
-                            <span class="tech-tag">PHP</span>
                             <span class="tech-tag">Laravel</span>
                             <span class="tech-tag">MongoDB</span>
                             <span class="tech-tag">Couchbase</span>
@@ -915,7 +161,7 @@
                             <span class="tech-tag">GraphQL</span>
                             <span class="tech-tag">WordPress</span>
                             <span class="tech-tag">Git</span>
-                            <span class="tech-tag">Cloude </span>
+                            <span class="tech-tag">Cloude Server</span>
                         </div>
                     </div>
                 </div>
@@ -967,12 +213,16 @@
                 <div class="skill-category fade-in">
                     <h3>Backend Development</h3>
                     <div class="skill-list">
-                        <span class="skill-item">PHP</span>
+                        <span class="skill-item">PHP (Core, OOPs)</span>
                         <span class="skill-item">Laravel</span>
                         <span class="skill-item">CodeIgniter</span>
                         <span class="skill-item">CakePHP</span>
                         <span class="skill-item">Symfony</span>
                         <span class="skill-item">Node.js</span>
+                        <span class="skill-item">RESTful API Development</span>
+                        <span class="skill-item">Authentication & Authorization (JWT, Sanctum,OAuth2)</span>
+                        <span class="skill-item">MVC Architecture</span>
+                        <span class="skill-item">Secure Coding (SQL Injection, XSS, CSRF)</span>
                         <span class="skill-item">WordPress</span>
                     </div>
                 </div>
@@ -997,31 +247,45 @@
                         <span class="skill-item">MySQL</span>
                         <span class="skill-item">MongoDB</span>
                         <span class="skill-item">Couchbase</span>
+                        <span class="skill-item">Database Design & Optimization</span>
                     </div>
                 </div>
 
                 <div class="skill-category fade-in">
                     <h3>Tools & DevOps</h3>
                     <div class="skill-list">
-                        <span class="skill-item">Git</span>
+                        <span class="skill-item">Git & GitHub</span>
+                        <span class="skill-item">Composer</span>
+                        <span class="skill-item">Postman</span>
                         <span class="skill-item">Docker</span>
+                        <span class="skill-item">Apache / Nginx</span>
+                        <span class="skill-item">cPanel / WHM</span>
                         <span class="skill-item">AWS S3</span>
-                        <span class="skill-item">cPanel/WHM</span>
                         <span class="skill-item">Cloudflare</span>
                     </div>
                 </div>
-
+                <div class="skill-category fade-in">
+                    <h3>AI-Assisted Development</h3>
+                    <div class="skill-list">
+                        <span class="skill-item"> ChatGPT – logic building, and code optimization</span>
+                        <span class="skill-item"> GitHub Copilot – Faster coding and boilerplate generation</span>
+                        <span class="skill-item">Cursor & Claude – AI-assisted coding and documentation</span>
+                    </div>
+                </div>
                 <div class="skill-category fade-in">
                     <h3>Other Skills</h3>
                     <div class="skill-list">
-                        <span class="skill-item">RESTful API</span>
-                        <span class="skill-item">GraphQL</span>
+                        <span class="skill-item">Requirement Analysis</span>
+                        <span class="skill-item">Bug Fixing & Debugging</span>
                         <span class="skill-item">CRM Software</span>
+                        <span class="skill-item">Performance Optimization</span>
+                        <span class="skill-item">Client-based Project Handling</span>
                         <span class="skill-item">SEO</span>
                         <span class="skill-item">CMS</span>
                          <span class="skill-item">Error Optimize</span>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
@@ -1039,7 +303,7 @@
                     <div class="project-header">
                         <div>
                             <h3>CRM Software Platform </h3>
-                            <p class="project-date">Oct - Dec 2025</p>
+                            <p class="project-date">Oct 2025 - Dec 2025</p>
                         </div>
                     </div>
                     <p>Developed a comprehensive Customer Relationship Management system for managing leads, customer interactions, and sales pipelines. Implemented secure authentication, role-based access control, and automated email workflows with real-time analytics dashboard.</p>
@@ -1049,6 +313,7 @@
                         <span class="tech-tag">RESTful API</span>
                         <span class="tech-tag">JWT Auth</span>
                         <span class="tech-tag">Chart.js</span>
+                        <span class="tech-tag">Git</span>
                     </div>
                 </div>
 
@@ -1061,12 +326,13 @@
                     </div>
                     <p>Built a full-featured tour and travel web application with custom CMS for package management. Integrated third-party APIs for flight bookings, hotel reservations, and payment gateways. Implemented advanced search filters, booking management, and automated invoice generation using OOP principles.</p>
                     <div class="tech-tags">
-                        <span class="tech-tag">Core PHP</span>
-                        <span class="tech-tag">OOP</span>
+                        <span class="tech-tag">PHP Core & OOPs </span>
                         <span class="tech-tag">MySQL</span>
                         <span class="tech-tag">RESTful API</span>
                         <span class="tech-tag">Custom CMS</span>
                         <span class="tech-tag">Payment Gateway</span>
+                        <span class="tech-tag">Third-Party API</span>
+                        <span class="tech-tag">Git</span>
                     </div>
                 </div>
 
@@ -1079,10 +345,11 @@
                     </div>
                     <p>Contributed to the development of a comprehensive platform for flight booking and travel guidance. Implemented real-time flight data integration, dynamic pricing engine, and user-friendly booking interfaces with automated confirmation emails.</p>
                     <div class="tech-tags">
-                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">PHP Core & OOPs</span>
                         <span class="tech-tag">MySQL</span>
                         <span class="tech-tag">RESTful API</span>
                         <span class="tech-tag">Third-party APIs</span>
+                        <span class="tech-tag">Git</span>
                     </div>
                 </div>
             </div>
